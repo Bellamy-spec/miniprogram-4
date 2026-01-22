@@ -13,6 +13,13 @@ Page({
     gc_index: 0,
     gender_options: ["男", "女"],
     gender_index: 0,
+    conclusion_options: ["应服兵役", "免服兵役", "不得服兵役"],
+    conclusion_index: 0,
+    bol_options: ["是", "否"],
+    bol_index: 0,
+    name: "",
+    id_num: "",
+    home: "",
   },
 
   /**
@@ -95,5 +102,46 @@ Page({
     this.setData({
       gender_index: e.detail.value,
     })
+  },
+
+  setConclusionOption(e){
+    // 兵役登记结论选项发生变化
+    this.setData({
+      conclusion_index: e.detail.value,
+    })
+  },
+
+  setBolOption(e){
+    // 是否预备役登记选项发生变化
+    this.setData({
+      bol_index: e.detail.value,
+    })
+  },
+
+  onNameInput(e){
+    // 姓名输入
+    this.setData({
+      name: e.detail.value,
+    })
+  },
+
+  onIdNumInput(e){
+    // 身份证号输入
+    this.setData({
+      id_num: e.detail.value,
+    })
+  },
+
+  onHomeInput(e){
+    // 户籍所在地输入
+    this.setData({
+      home: e.detail.value,
+    })
+  },
+
+  submit(){
+    // 点击按钮提交
+    console.log(this.data)
+    // 此处待进一步开发...
   },
 })

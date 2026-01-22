@@ -2,3 +2,7 @@
 .marker-left{
   margin-left: 70rpx;
 }
+
+.marker-left-less{
+  margin-left: 35rpx;
+}

@@ -45,16 +45,60 @@
               </view>
             </view>
             <!-- 身份证号输入框 -->
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">身份证号</label></view>
+              <view class="weui-cell__bd weui-flext">
+                <input
+                    class="weui-input"
+                    type="text"
+                    placeholder="请输入身份证号"
+                    placeholder-class="weui-input__placeholder"
+                    bindinput="onIdNumInput"
+                />
+              </view>
+            </view>
             <!-- 户籍所在地输入框 -->
+            <view class="weui-cell weui-cell_active">
+              <view class="weui-cell__hd"><label class="weui-label">户籍所在地</label></view>
+              <view class="weui-cell__bd weui-flext">
+                <input
+                    class="weui-input"
+                    type="text"
+                    placeholder="请输入户籍所在地"
+                    placeholder-class="weui-input__placeholder"
+                    bindinput="onHomeInput"
+                />
+              </view>
+            </view>
             <!-- 兵役登记结论选择框 -->
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" style="width: 3em;">兵役登记结论</label>
+              </view>
+              <view class="weui-cell__bd weui-flex marker-left">
+                <picker aria-role="combobox" bindchange="setConclusionOption" range="{{ conclusion_options }}" value="{{ conclusion_index }}">
+                    <view class="weui-select">{{ conclusion_options[conclusion_index] }}</view>
+                </picker>
+              </view>
+            </view>
             <!-- 是否预备役登记选择框 -->
+            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+              <view class="weui-cell__hd">
+                <label class="weui-label" style="width: 4em;">是否预备役登记</label>
+              </view>
+              <view class="weui-cell__bd weui-flex marker-left-less">
+                <picker aria-role="combobox" bindchange="setBolOption" range="{{ bol_options }}" value="{{ bol_index }}">
+                    <view class="weui-select">{{ bol_options[bol_index] }}</view>
+                </picker>
+              </view>
+            </view>
           </view>
         </view>
       </view>
 		</view>
     <view class="weui-form__ft">
       <view class="weui-form__opr-area">
-        <view class="weui-btn weui-btn_primary" aria-role="button">提交</view>
+        <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submit">提交</view>
       </view>
 		</view>
 	</view>
