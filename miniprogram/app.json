@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/form_start/form_start",
     "pages/index/index",
     "pages/example/index"
   ],
@@ -7,7 +8,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "兵役登记信息收集小程序",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
