@@ -1,4 +1,20 @@
 // pages/form_start/form_start.js
+const db = wx.cloud.database()
+
+// 获取当前时间并格式化为 yyyy-mm-dd hh:ii:ss
+function getCurrentDateTime() {
+  const now = new Date();
+  
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 Page({
 
   /**
@@ -210,20 +226,38 @@ Page({
     })
     .then(res => {
       if(res.confirm){
-        wx.showToast({
-          title: "提交成功",
-          icon: 'success',
-          duration: 2000
-        })
-        
-        // 设置按钮不可点击，防止重复提交
-        this.setData({
-          tap_event: "",
-          button_style: "opacity: 0.4;",
-        })
-
         console.log("可写入数据库")
+        console.log(getCurrentDateTime())
         // 此处待进一步开发...
+        db.collection('army_info').add({
+          data: {
+            class_and_grade: this.data.gc_options[this.data.gc_index],
+            name: this.data.name,
+            gender: this.data.gender_options[this.data.gender_index],
+            id_num: this.data.id_num,
+            home: this.data.home,
+            conclusion: this.data.conclusion_options[this.data.conclusion_index],
+            is_pre: this.data.bol_options[this.data.bol_index],
+            add_datetime: getCurrentDateTime(),
+          }
+        })
+        .then(res => {
+          console.log("添加数据：", res)
+          wx.showToast({
+            title: "提交成功",
+            icon: 'success',
+            duration: 2000
+          })
+  
+          // 设置按钮不可点击，防止重复提交
+          this.setData({
+            tap_event: "",
+            button_style: "opacity: 0.4;",
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
       }
       else if(res.cancel){
         // 用户点击了取消
