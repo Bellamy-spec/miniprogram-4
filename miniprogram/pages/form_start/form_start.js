@@ -20,6 +20,10 @@ Page({
     name: "",
     id_num: "",
     home: "",
+
+    // 按钮样式
+    button_style: "",
+    tap_event: "submit",
   },
 
   /**
@@ -139,9 +143,95 @@ Page({
     })
   },
 
-  submit(){
+  async submit(){
     // 点击按钮提交
-    console.log(this.data)
-    // 此处待进一步开发...
+    // console.log(this.data)
+
+    // 检查信息是否填全
+    if(!this.data.name){
+      // 提示姓名未填写
+      wx.showToast({
+        title: "姓名未填",
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }
+    if(!this.data.id_num){
+      // 提示身份证号未填
+      wx.showToast({
+        title: "身份证号未填",
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }
+    if(!this.data.home){
+      // 提示户籍所在地未填
+      wx.showToast({
+        title: "户籍所在地未填",
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }
+
+    // 检验身份证号
+    const {result: {correct, gender}} = await wx.cloud.callFunction({
+      name: "id_lab",
+      data: {
+        id_num: this.data.id_num
+      }
+    })
+    // console.log(correct, gender)
+    if(!correct){
+      // 提示身份证号错误
+      wx.showToast({
+        title: "身份证号错误",
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }
+    if(gender != this.data.gender_options[this.data.gender_index]){
+      // 提示性别错误
+      wx.showToast({
+        title: "性别错误",
+        icon: 'error',
+        duration: 2000
+      })
+      return
+    }
+
+    // 用户最终确认
+    wx.showModal({
+      title: '信息确认',
+      content: "提交后数据不可修改，你确定要提交吗？"
+    })
+    .then(res => {
+      if(res.confirm){
+        wx.showToast({
+          title: "提交成功",
+          icon: 'success',
+          duration: 2000
+        })
+        
+        // 设置按钮不可点击，防止重复提交
+        this.setData({
+          tap_event: "",
+          button_style: "opacity: 0.4;",
+        })
+
+        console.log("可写入数据库")
+        // 此处待进一步开发...
+      }
+      else if(res.cancel){
+        // 用户点击了取消
+        console.log("待进一步确认")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
 })

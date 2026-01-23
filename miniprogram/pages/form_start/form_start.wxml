@@ -98,7 +98,7 @@
 		</view>
     <view class="weui-form__ft">
       <view class="weui-form__opr-area">
-        <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submit">提交</view>
+        <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="{{ tap_event }}" style="{{ button_style }}">提交</view>
       </view>
 		</view>
 	</view>
