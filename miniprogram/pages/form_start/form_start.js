@@ -148,7 +148,7 @@ Page({
   onIdNumInput(e){
     // 身份证号输入
     this.setData({
-      id_num: e.detail.value,
+      id_num: e.detail.value.toUpperCase(),
     })
   },
 
